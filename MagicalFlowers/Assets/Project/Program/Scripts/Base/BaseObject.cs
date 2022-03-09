@@ -6,7 +6,7 @@ namespace MagicalFlowers.Base
 {
     public abstract class BaseObject : MonoBehaviour
     {
-        protected Vector2 position;
-        public Vector2 Position { get { return position; } }
+        protected Vector2Int position;
+        public Vector2Int Position { get { return position; } }
     }
 }
