@@ -12,9 +12,9 @@ namespace MagicalFlowers.Stage
     {
         StageData stageData;
         [SerializeField] StageGenerator stageGenerator;
-
         [SerializeField] Vector2Int getTilePos;
-        void Start()
+
+        void Awake()
         {
             stageData = StageUtility.CreateTestStageData();
             stageGenerator.Generate(stageData);
@@ -22,29 +22,26 @@ namespace MagicalFlowers.Stage
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                DebugLogger.Log(GetItemData(getTilePos.x, getTilePos.y) + ":" + GetActorData(getTilePos.x, getTilePos.y));
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                DebugLogger.Log($"{getTilePos}:{CheckMove(getTilePos.x, getTilePos.y)}");
-            }
+            
         }
 
-        public bool CheckMove(int x, int y)
-        {
-            return stageData.map[y, x] == 0 && stageData.actors.Find(n => n.Position.x == x && n.Position.y == y) == null;
-        }
-
-        public bool CheckMove(Vector2Int pos)
+        public bool CheckMove(Vector2Int pos, Vector2Int dir)
         {
             //配列の範囲外の場合はfalse
-            if(pos.x < 0 || pos.y < 0 || pos.x > stageData.map.GetLength(1) || pos.x > stageData.map.GetLength(0))
+            Vector2Int afterPos = pos + dir;
+            if(afterPos.x < 0 || afterPos.y < 0 || afterPos.x >= stageData.map.GetLength(1) || afterPos.y >= stageData.map.GetLength(0))
             {
                 return false;
             }
-            return stageData.map[pos.y, pos.x] == 0 && stageData.actors.Find(n => n.Position.x == pos.x && n.Position.y == pos.y) == null;
+            //斜め移動の場合
+            if (dir.x != 0 && dir.x != 0)
+            {   
+                if(stageData.map[pos.y + dir.y, pos.x] == 1 || stageData.map[pos.y, pos.x + dir.x] == 1)
+                {
+                    return false;
+                }
+            }
+            return stageData.map[afterPos.y, afterPos.x] == 0 && stageData.actors.Find(n => n.Position.x == afterPos.x && n.Position.y == afterPos.y) == null;
         }
 
         public ItemObject GetItemData(int x,int y)
@@ -52,9 +49,24 @@ namespace MagicalFlowers.Stage
             return  stageData.items.Find(n => n.Position.x == x && n.Position.y == y);
         }
 
+        public ItemObject GetItemData(Vector2Int pos)
+        {
+            return stageData.items.Find(n => n.Position.x == pos.x && n.Position.y == pos.y);
+        }
+
         public BaseActor GetActorData(int x, int y)
         {
             return stageData.actors.Find(n => n.Position.x == x && n.Position.y == y);
+        }
+
+        public BaseActor GetActorData(Vector2Int pos)
+        {
+            return stageData.actors.Find(n => n.Position.x == pos.x && n.Position.y == pos.y);
+        }
+
+        public void AddActor(BaseActor baseActor)
+        {
+            stageData.actors.Add(baseActor);
         }
     }
 }
