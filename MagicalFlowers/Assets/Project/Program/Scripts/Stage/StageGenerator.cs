@@ -22,7 +22,7 @@ namespace MagicalFlowers.Stage
                     if (stageData.map[y, x] != 0)
                     {
                         //0を省く関係で-1
-                        TileGenerate(x, y, stageData.map[y, x] - 1);
+                        TileGenerate(x, y, stageData.map[y, x]);
                     }
                     else
                     {

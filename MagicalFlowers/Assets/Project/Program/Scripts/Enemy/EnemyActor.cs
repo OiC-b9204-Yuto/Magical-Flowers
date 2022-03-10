@@ -1,6 +1,7 @@
 using MagicalFlowers.Base;
 using MagicalFlowers.Player;
 using MagicalFlowers.Stage;
+using MagicalFlowers.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace MagicalFlowers.Enemy
     public class EnemyActor : BaseActor
     {
         //自分自身の情報
-        [SerializeField] [Range(10, 100)] private float PlayerSearchDistance = 15.0f; //プレイヤー発見となる物体の距離
+        [SerializeField] [Range(0, 100)] private float PlayerSearchDistance = 15.0f; //プレイヤー発見となる物体の距離
         //プレイヤーの情報
         private PlayerActor Player;
         Vector2Int PlayerPosition;
@@ -22,6 +23,8 @@ namespace MagicalFlowers.Enemy
         //ランダム移動
         int RandomX;
         int RandomY;
+        //A*
+        Node node;
         void Start()
         {
             Initialize();
@@ -54,9 +57,10 @@ namespace MagicalFlowers.Enemy
             PlayerPosition = Player.Position;
             Distance = Vector2Int.Distance(PlayerPosition, position);
             Mathf.Abs(Distance);
+            
             if (Distance > PlayerSearchDistance) //プレイヤーとの距離が遠い時
             {
-                
+
                 Vector3 diff = this.transform.position - LatestPositon;
                 LatestPositon = this.transform.position;
                 if (diff.magnitude > 0.01f)
@@ -65,16 +69,14 @@ namespace MagicalFlowers.Enemy
                 }
                 RandomX = Random.Range(-1, 2);
                 RandomY = Random.Range(-1, 2);
+                DebugLogger.Log("最短距離: X:" + Grid.Instance.FinalPath[0].GridX.ToString() + "Y: " + Grid.Instance.FinalPath[0].GridY.ToString());
                 direction = new Vector2Int(RandomX, RandomY);
-                
+
             }
             else //プレイヤーとの距離が近い時
             {
                 this.transform.LookAt(Player.transform);
-                RandomX = Random.Range(-1, 2);
-                RandomY = Random.Range(-1, 2);
-                direction = new Vector2Int(RandomX, RandomY);
-                //ActorState = ActorStateType.ActionEnd;
+
             }
             if (StageManager.Instance.CheckMove(position, direction))
             {

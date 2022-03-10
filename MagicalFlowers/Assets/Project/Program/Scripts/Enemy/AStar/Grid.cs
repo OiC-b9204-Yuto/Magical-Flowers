@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MagicalFlowers.Common;
 
-public class Grid : MonoBehaviour
+public class Grid : SingletonMonoBehaviour<Grid>
 {
     public Transform StartPosition;
     public LayerMask WallMask;
@@ -118,7 +119,7 @@ public class Grid : MonoBehaviour
 
         if (grid != null)
         {
-            foreach(Node node in grid)
+            foreach (Node node in grid)
             {
                 if (node.IsWall)
                 {
@@ -129,7 +130,7 @@ public class Grid : MonoBehaviour
                     Gizmos.color = Color.yellow;
                 }
 
-                if(FinalPath != null)
+                if (FinalPath != null)
                 {
                     if (FinalPath.Contains(node))
                     {

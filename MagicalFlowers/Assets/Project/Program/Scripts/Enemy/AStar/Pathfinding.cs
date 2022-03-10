@@ -7,10 +7,9 @@ public class Pathfinding : MonoBehaviour
     Grid grid;
     public Transform StartPosition;
     public Transform TargetPosition;
-
     private void Awake()
     {
-        grid = GameObject.Find("GameManager").GetComponent<Grid>();
+        grid = Grid.Instance.GetComponent<Grid>();
     }
 
     private void Update()
