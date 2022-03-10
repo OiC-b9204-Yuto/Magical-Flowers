@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d4d8c39c436e84cb31adc40d9ae7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSearchDistance: 2.2
+  PlayerSearchDistance: 100
   targetPosition: {x: 0, y: 0, z: 0}
 --- !u!65 &82198524
 BoxCollider:

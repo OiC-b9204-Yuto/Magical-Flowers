@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8984614318955308822}
   - component: {fileID: 5404346540728199347}
   - component: {fileID: 7846660069187378297}
+  - component: {fileID: 8569517900858871642}
   m_Layer: 0
   m_Name: Ground_Dirt_Block
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8569517900858871642
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8639051641628687788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.49999997, z: 0}
