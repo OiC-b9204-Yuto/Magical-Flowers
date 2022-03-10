@@ -3,39 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using MagicalFlowers.Common;
 
-public class CurrentScreenManager : SingletonMonoBehaviour<CurrentScreenManager>
+namespace MagicalFlowers.UI
 {
-    public int ScreenType;
-    [SerializeField]AudioClip BGM;
-    [SerializeField]private GameObject TitleScreenObject;
-    [SerializeField]private GameObject MainMenuScreenObject;
-
-    void Update()
+    public class CurrentScreenManager : SingletonMonoBehaviour<CurrentScreenManager>
     {
-        PlayBGM();
-        CheckScreenState();
-    }
+        public int ScreenType;
+        [SerializeField] AudioClip BGM;
+        [SerializeField] private GameObject TitleScreenObject;
+        [SerializeField] private GameObject MainMenuScreenObject;
+        [SerializeField] private GameObject OptionScreenObject;
 
-    void PlayBGM()
-    {
-        if (!AudioManager.Instance.BGM.isPlaying)
+        private void Start()
         {
-            AudioManager.Instance.BGM.PlayOneShot(BGM);
+            AudioManager.Instance.Load();
         }
-    }
-
-    void CheckScreenState()
-    {
-        switch (ScreenType)
+        void Update()
         {
-            case 0:
-                TitleScreenObject.SetActive(true);
-                MainMenuScreenObject.SetActive(false);
-                break;
-            case 1:
-                TitleScreenObject.SetActive(false);
-                MainMenuScreenObject.SetActive(true);
-                break;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            PlayBGM();
+            CheckScreenState();
+        }
+
+        void PlayBGM()
+        {
+            if (!AudioManager.Instance.BGM.isPlaying)
+            {
+                AudioManager.Instance.BGM.PlayOneShot(BGM);
+            }
+        }
+
+        void CheckScreenState()
+        {
+            switch (ScreenType)
+            {
+                case 0:
+                    TitleScreenObject.SetActive(true);
+                    MainMenuScreenObject.SetActive(false);
+                    OptionScreenObject.SetActive(false);
+                    break;
+                case 1:
+                    TitleScreenObject.SetActive(false);
+                    OptionScreenObject.SetActive(false);
+                    MainMenuScreenObject.SetActive(true);
+                    break;
+                case 2:
+                    TitleScreenObject.SetActive(false);
+                    OptionScreenObject.SetActive(true);
+                    MainMenuScreenObject.SetActive(false);
+                    break;
+            }
         }
     }
 }
