@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MagicalFlowers.Item;
 
 namespace MagicalFlowers.Base
 {
@@ -42,7 +43,13 @@ namespace MagicalFlowers.Base
         protected int attackPoint;
         protected int defensePoint;
         //バフ、デバフ用の効果用リスト（未作成）
+        protected struct effect
+        {
+            public EffectType  Type;
+            public int         value;
+        }
 
+        protected List<effect> effects;
         public virtual void UpdateAction()
         {
             switch (actorState)
@@ -89,6 +96,15 @@ namespace MagicalFlowers.Base
         public void AddDefensePoint(int value)
         {
             defensePoint += value;
+        }
+
+        //エフェクト周り
+        public void AddEffects(EffectType type , int value)
+        {
+            effect eff = new effect();
+            eff.Type = type;
+            eff.value = value;
+            effects.Add(eff);
         }
     }
 }

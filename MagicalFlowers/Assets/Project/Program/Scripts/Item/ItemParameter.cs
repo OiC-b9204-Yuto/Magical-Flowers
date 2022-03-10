@@ -85,8 +85,9 @@ namespace MagicalFlowers.Item
     public class flower : data
     {
         public EffectType effectType;
+        public int value;
         public int level;
-        public int areaLength;
+        public int areaRadius;
         //変化先
         public int equipmentID;
         public int availableID;

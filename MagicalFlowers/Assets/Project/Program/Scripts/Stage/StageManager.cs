@@ -68,5 +68,10 @@ namespace MagicalFlowers.Stage
         {
             stageData.actors.Add(baseActor);
         }
+
+        public Vector2Int GetStageLength()
+        {
+            return new Vector2Int(stageData.map.GetLength(1), stageData.map.GetLength(0));
+        }
     }
 }

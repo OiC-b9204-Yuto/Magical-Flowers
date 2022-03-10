@@ -17,4 +17,14 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: , ns: , asm: }
+      type: {class: flower, ns: MagicalFlowers.Item, asm: Assembly-CSharp}
+      data:
+        Type: 2
+        Name: A
+        Description: A
+        effectType: 0
+        value: 0
+        level: 0
+        areaRadius: 0
+        equipmentID: 1
+        availableID: 0
