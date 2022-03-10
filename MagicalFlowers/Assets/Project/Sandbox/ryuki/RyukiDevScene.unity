@@ -185,11 +185,11 @@ PrefabInstance:
     - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
       propertyPath: tilePallet.Array.data[0]
       value: 
-      objectReference: {fileID: 5685329754187438219, guid: c1969582f748c3d40b046ea468ac20ee, type: 3}
+      objectReference: {fileID: 8639051641628687788, guid: b41b1da1f70725a4bad774554ca2d2a3, type: 3}
     - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
       propertyPath: tilePallet.Array.data[1]
       value: 
-      objectReference: {fileID: 7397976568965135031, guid: b72a6d9a275516841ba75b422c15483c, type: 3}
+      objectReference: {fileID: 4166282272653978402, guid: db821c5913ff2c041ac66ec03c691753, type: 3}
     - target: {fileID: 6699364091479662098, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
       propertyPath: m_Name
       value: StageManager (1)
@@ -492,13 +492,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350163317}
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 2.09, y: 6.93, z: -6.86}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
+  m_LocalPosition: {x: 2.09, y: 7, z: -6.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!1 &381980245
 GameObject:
   m_ObjectHideFlags: 0
