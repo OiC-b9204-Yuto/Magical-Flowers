@@ -7,7 +7,17 @@ namespace MagicalFlowers.Enemy
 {
     public class EnemyActor : BaseActor
     {
-        protected override void UpdateAction()
+        protected override void ActionBeginProcess()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void ActionEndProcess()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void InputWaitProcess()
         {
             throw new System.NotImplementedException();
         }

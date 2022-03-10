@@ -36,7 +36,17 @@ namespace MagicalFlowers.Stage
         {
             return stageData.map[y, x] == 0 && stageData.actors.Find(n => n.Position.x == x && n.Position.y == y) == null;
         }
-        
+
+        public bool CheckMove(Vector2Int pos)
+        {
+            //配列の範囲外の場合はfalse
+            if(pos.x < 0 || pos.y < 0 || pos.x > stageData.map.GetLength(1) || pos.x > stageData.map.GetLength(0))
+            {
+                return false;
+            }
+            return stageData.map[pos.y, pos.x] == 0 && stageData.actors.Find(n => n.Position.x == pos.x && n.Position.y == pos.y) == null;
+        }
+
         public ItemObject GetItemData(int x,int y)
         {
             return  stageData.items.Find(n => n.Position.x == x && n.Position.y == y);
