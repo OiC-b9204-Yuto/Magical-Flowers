@@ -34,7 +34,7 @@ namespace MagicalFlowers
 
         void Start()
         {
-            updateActorList.Add(playerActor);
+            updateActorList.Insert(0,playerActor);
             //遷移演出用クラスの演出終了時のEventなどでGameState.Playingにするように
             gameState = GameState.Playing;
         }
@@ -79,7 +79,7 @@ namespace MagicalFlowers
             //アクションを終了していない場合はそのアクターのアクションがActionEndになるまで他は呼ばない
             for (int i = updateActorIndex; i < updateActorList.Count; i++)
             {
-                if (updateActorList[i].ActorActionState != BaseActor.ActorState.ActionEnd)
+                if (updateActorList[i].ActorState != BaseActor.ActorStateType.ActionEnd)
                 {
                     updateActorList[i].UpdateAction();
                     updateActorIndex = i;
@@ -89,6 +89,7 @@ namespace MagicalFlowers
                 {
                     //すべてのアクションが終わったのでリセットする
                     updateActorList.ForEach(n => n.ActorActionStateReset());
+                    updateActorIndex = 0;
                 }
             }
         }

@@ -10,25 +10,25 @@ namespace MagicalFlowers.Base
         protected Vector2Int direction;
 
         //アクションの状態用
-        private ActorState actorActionState;
-        public ActorState ActorActionState
+        private ActorStateType actorState;
+        public ActorStateType ActorState
         {
-            get { return actorActionState; }
+            get { return actorState; }
             set {
-                if (actorActionState == value) { return; }
-                actorActionState = value;
-                if (value == ActorState.ActionEnd) { ActionEndProcess(); } 
+                if (actorState == value) { return; }
+                actorState = value;
+                if (value == ActorStateType.ActionEnd) { ActionEndProcess(); } 
             }
         }
 
-        public enum ActorState
+        public enum ActorStateType
         {
             InputWait,
             ActionBegin,
             ActionEnd,
         }
 
-        public void ActorActionStateReset() { actorActionState = ActorState.InputWait; }
+        public void ActorActionStateReset() { actorState = ActorStateType.InputWait; }
 
         public enum ActionType
         {
@@ -45,12 +45,12 @@ namespace MagicalFlowers.Base
 
         public virtual void UpdateAction()
         {
-            switch (actorActionState)
+            switch (actorState)
             {
-                case ActorState.InputWait:
+                case ActorStateType.InputWait:
                     InputWaitProcess();
                     break;
-                case ActorState.ActionBegin:
+                case ActorStateType.ActionBegin:
                     ActionBeginProcess();
                     break;
             }

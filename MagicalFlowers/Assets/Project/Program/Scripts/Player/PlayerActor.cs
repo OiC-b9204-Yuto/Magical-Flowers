@@ -1,4 +1,4 @@
-using MagicalFlowers.Base;
+ï»¿using MagicalFlowers.Base;
 using MagicalFlowers.Stage;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,20 +8,20 @@ namespace MagicalFlowers.Player
 {
     public class PlayerActor : BaseActor
     {
-        //ˆÚ“®æ‚ÌÀ•W
+        //ç§»å‹•å…ˆã®åº§æ¨™
         protected Vector3 targetPosition;
 
-        //Î‚ßˆÚ“®ƒ‚[ƒh—pƒtƒ‰ƒO
-        bool diagonalMode = false;
-        //•ûŒü“]Š·ƒ‚[ƒh—pƒtƒ‰ƒO
-        bool directionMode = false;
+        //æ–œã‚ç§»å‹•ãƒ¢ãƒ¼ãƒ‰ç”¨ãƒ•ãƒ©ã‚°
+        [SerializeField]bool diagonalMode = false;
+        //æ–¹å‘è»¢æ›ãƒ¢ãƒ¼ãƒ‰ç”¨ãƒ•ãƒ©ã‚°
+        [SerializeField] bool directionMode = false;
 
         Vector2Int inputValue;
         float moveInputTimer = 0;
         const float moveInputTime = 0.1f;
 
 
-        //“ü—Í—pƒvƒƒoƒCƒ_[ƒNƒ‰ƒX
+        //å…¥åŠ›ç”¨ãƒ—ãƒ­ãƒã‚¤ãƒ€ãƒ¼ã‚¯ãƒ©ã‚¹
         IPlayerInputProvider inputProvider;
 
         private void Awake()
@@ -29,11 +29,22 @@ namespace MagicalFlowers.Player
             inputProvider = new UnityInputProvider();
         }
 
+        private void Start()
+        {
+            Initialize();
+        }
+
+        void Initialize()
+        {
+            position = StageUtility.WorldPos2StagePos(transform.position);
+            StageManager.Instance.AddActor(this);
+        }
+
         protected override void InputWaitProcess()
         {
             inputValue = inputProvider.GetMoveVector();
             bool inputCheck = false;
-            //Î‚ßˆÚ“®ƒ‚[ƒh—p‚Ì“ü—ÍŠm”F•ªŠò
+            //æ–œã‚ç§»å‹•ãƒ¢ãƒ¼ãƒ‰ç”¨ã®å…¥åŠ›ç¢ºèªåˆ†å²
             if (diagonalMode)
             {
                 inputCheck = inputValue.x != 0 && inputValue.y != 0;
@@ -48,16 +59,16 @@ namespace MagicalFlowers.Player
                 moveInputTimer += Time.deltaTime;
                 direction = inputValue;
 
-                //‰ñ“](‰¼ ŠŠ‚ç‚©‚É‚µ‚½•û‚ª‚¢‚¢‚©‚à)
+                //å›è»¢(ä»® æ»‘ã‚‰ã‹ã«ã—ãŸæ–¹ãŒã„ã„ã‹ã‚‚)
                 transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(direction.x,-direction.y) * Mathf.Rad2Deg, Vector3.up);
 
-                //•ûŒüƒ‚[ƒh‚Å‚È‚¢‚©‚Âˆê’èŠÔ“ü—Í‚µ‚Ä‚¢‚é‚Æ‚«‚Ì‚İˆÚ“®‚·‚é
+                //æ–¹å‘ãƒ¢ãƒ¼ãƒ‰ã§ãªã„æ™‚ã‹ã¤ä¸€å®šæ™‚é–“å…¥åŠ›ã—ã¦ã„ã‚‹ã¨ãã®ã¿ç§»å‹•ã™ã‚‹
                 if (!directionMode && moveInputTimer >= moveInputTime)
                 {
-                    if (StageManager.Instance.CheckMove(position + direction))
+                    if (StageManager.Instance.CheckMove(position ,direction))
                     {
                         targetPosition = transform.position + new Vector3(direction.x, 0, -direction.y);
-                        ActorActionState = ActorState.ActionBegin;
+                        ActorState = ActorStateType.ActionBegin;
                         moveInputTimer = 0;
                     }
                 }
@@ -71,18 +82,18 @@ namespace MagicalFlowers.Player
 
         protected override void ActionBeginProcess()
         {
-            //ˆÚ“®’†ˆ—
+            //ç§»å‹•ä¸­å‡¦ç†
             var step = 5 * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
             if (transform.position == targetPosition)
             {
-                ActorActionState = ActorState.ActionEnd;
+                ActorState = ActorStateType.ActionEnd;
             }
         }
 
         protected override void ActionEndProcess()
         {
-            //ˆÚ“®Š®—¹‚µ‚½‚Ì‚ÅÀ•W‚ğ“K—p‚·‚é
+            //ç§»å‹•å®Œäº†ã—ãŸã®ã§åº§æ¨™ã‚’é©ç”¨ã™ã‚‹
             position += direction;
         }
     }
