@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using MagicalFlowers.Common;
 
-public class Grid : SingletonMonoBehaviour<Grid>
+public class GridGenerator : SingletonMonoBehaviour<GridGenerator>
 {
     public Transform StartPosition;
     public LayerMask WallMask;
     public Vector2 GridWorldSize;
     public float nodeRadius;
     public float Distance;
-
     Node[,] grid;
     public List<Node> FinalPath;
 
@@ -28,15 +27,14 @@ public class Grid : SingletonMonoBehaviour<Grid>
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
-        Vector3 bottomLeft = transform.position - Vector3.right * GridWorldSize.x / 2 - Vector3.forward * GridWorldSize.y / 2;
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeX; y++)
             {
-                Vector3 worldPoint = bottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+                Vector3 worldPoint = this.transform.position + Vector3.right * (x * nodeDiameter + nodeRadius) - Vector3.forward * (y * nodeDiameter + nodeRadius);
                 bool Wall = true;
 
-                if (Physics.CheckSphere(worldPoint, nodeRadius, WallMask))
+                if (Physics.CheckSphere(worldPoint, 0.25f, WallMask))
                 {
                     Wall = false;
                 }
@@ -48,8 +46,8 @@ public class Grid : SingletonMonoBehaviour<Grid>
 
     public Node NodeFromWorldPosition(Vector3 a_WorldPositon)
     {
-        float xPoint = ((a_WorldPositon.x + GridWorldSize.x / 2) / GridWorldSize.x);
-        float yPoint = ((a_WorldPositon.z + GridWorldSize.y / 2) / GridWorldSize.y);
+        float xPoint = ( a_WorldPositon.x / GridWorldSize.x);
+        float yPoint = ( -a_WorldPositon.z / GridWorldSize.y);
 
         xPoint = Mathf.Clamp01(xPoint);
         yPoint = Mathf.Clamp01(yPoint);
@@ -115,7 +113,7 @@ public class Grid : SingletonMonoBehaviour<Grid>
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(GridWorldSize.x, 1, GridWorldSize.y));
+        Gizmos.DrawWireCube(transform.position - Vector3.left * GridWorldSize.x / 2 - Vector3.forward * GridWorldSize.y / 2, new Vector3(GridWorldSize.x,1,GridWorldSize.y));
 
         if (grid != null)
         {

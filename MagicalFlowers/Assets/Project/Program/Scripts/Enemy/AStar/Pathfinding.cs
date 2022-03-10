@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-    Grid grid;
+    GridGenerator grid;
     public Transform StartPosition;
     public Transform TargetPosition;
     private void Awake()
     {
-        grid = Grid.Instance.GetComponent<Grid>();
+        grid = GridGenerator.Instance.GetComponent<GridGenerator>();
     }
 
     private void Update()
@@ -90,6 +90,7 @@ public class Pathfinding : MonoBehaviour
         int ix = Mathf.Abs(a_nodeA.GridX - a_nodeB.GridX);
         int iy = Mathf.Abs(a_nodeA.GridY - a_nodeB.GridY);
 
+        
         return ix + iy;
     }
 }

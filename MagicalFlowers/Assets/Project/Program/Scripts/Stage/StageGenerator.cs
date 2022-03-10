@@ -8,6 +8,8 @@ namespace MagicalFlowers.Stage
     {
         [SerializeField] List<GameObject> tilePallet;
         [SerializeField] Transform generateParent;
+
+        UnityEngine.Grid grid;
         /// <summary>
         /// ステージデータをもとに生成する関数
         /// </summary>
@@ -34,6 +36,7 @@ namespace MagicalFlowers.Stage
 
         private void TileGenerate(int x, int y, int pallet)
         {
+            
             if (tilePallet.Count > pallet)
             {
                 Instantiate(tilePallet[pallet], new Vector3(x, 0, -y), Quaternion.identity, generateParent);

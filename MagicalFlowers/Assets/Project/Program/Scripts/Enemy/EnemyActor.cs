@@ -60,7 +60,6 @@ namespace MagicalFlowers.Enemy
             
             if (Distance > PlayerSearchDistance) //プレイヤーとの距離が遠い時
             {
-
                 Vector3 diff = this.transform.position - LatestPositon;
                 LatestPositon = this.transform.position;
                 if (diff.magnitude > 0.01f)
@@ -69,14 +68,13 @@ namespace MagicalFlowers.Enemy
                 }
                 RandomX = Random.Range(-1, 2);
                 RandomY = Random.Range(-1, 2);
-                DebugLogger.Log("最短距離: X:" + Grid.Instance.FinalPath[0].GridX.ToString() + "Y: " + Grid.Instance.FinalPath[0].GridY.ToString());
                 direction = new Vector2Int(RandomX, RandomY);
-
             }
             else //プレイヤーとの距離が近い時
             {
                 this.transform.LookAt(Player.transform);
-
+                DebugLogger.Log("x:" + (GridGenerator.Instance.FinalPath[0].GridX).ToString() + " / " + "y" + (GridGenerator.Instance.FinalPath[0].GridY).ToString());
+                direction = new Vector2Int(GridGenerator.Instance.FinalPath[0].GridX, GridGenerator.Instance.FinalPath[0].GridY) - position;
             }
             if (StageManager.Instance.CheckMove(position, direction))
             {
