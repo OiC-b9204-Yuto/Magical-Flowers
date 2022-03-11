@@ -52,8 +52,8 @@ public class GridGenerator : SingletonMonoBehaviour<GridGenerator>
         xPoint = Mathf.Clamp01(xPoint);
         yPoint = Mathf.Clamp01(yPoint);
 
-        int x = Mathf.RoundToInt((gridSizeX - 1) * xPoint);
-        int y = Mathf.RoundToInt((gridSizeY - 1) * yPoint);
+        int x = Mathf.RoundToInt(gridSizeX * xPoint);
+        int y = Mathf.RoundToInt(gridSizeY * yPoint);
 
         return grid[x, y];
     }
