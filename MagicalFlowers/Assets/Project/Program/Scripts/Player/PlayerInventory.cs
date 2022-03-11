@@ -7,9 +7,11 @@ namespace MagicalFlowers.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
-        List<ItemParameter> inventory;
+        [SerializeField]List<ItemParameter> inventory;
 
-        public IReadOnlyCollection<ItemParameter> ReadOnlyInventory => inventory;
+        public IReadOnlyList<ItemParameter> ReadOnlyInventory => inventory;
+
+        public bool IsOpen { get; set; }
 
         void Start()
         {

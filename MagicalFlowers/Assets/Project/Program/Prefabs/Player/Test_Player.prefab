@@ -1905,6 +1905,7 @@ GameObject:
   - component: {fileID: 4695484535537251723}
   - component: {fileID: 5359959628307885874}
   - component: {fileID: 5359959628307885875}
+  - component: {fileID: 1912916110}
   m_Layer: 0
   m_Name: Test_Player
   m_TagString: Player
@@ -1941,8 +1942,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ab31b211bc33b438153ea0d5fdc9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 1912916110}
   diagonalMode: 0
   directionMode: 0
+  FootStepSound: {fileID: 8300000, guid: 62de95a3558a4dd439a9e60aa71511bd, type: 3}
 --- !u!95 &5359959628307885875
 Animator:
   serializedVersion: 3
@@ -1962,6 +1965,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1912916110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359959628307885873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b9d75499f03b74e9bd247ddd5b39c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory:
+  - {fileID: 11400000, guid: bf96e6d69eb425941b754d79efbda9a4, type: 2}
+  - {fileID: 11400000, guid: bf96e6d69eb425941b754d79efbda9a4, type: 2}
+  - {fileID: 11400000, guid: c650cc55ed0b5b64b9b5a6f7dcaa6fbe, type: 2}
+  - {fileID: 11400000, guid: 872cde3c16fdbc947839a6cd5b12b4ed, type: 2}
+  - {fileID: 11400000, guid: e1b26fceb1aeaa74c8fa92a949160b72, type: 2}
 --- !u!1 &5481817995760289272
 GameObject:
   m_ObjectHideFlags: 0

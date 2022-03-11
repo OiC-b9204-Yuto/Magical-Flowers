@@ -27,14 +27,6 @@ namespace MagicalFlowers.UI
 			stringBuilder = new StringBuilder();
 		}
 
-		void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				AddLogText("Test:ダメージ食らってないよ");
-			}
-		}
-
 		public void AddLogText(string logText)
 		{
 			logList.Add(logText);
