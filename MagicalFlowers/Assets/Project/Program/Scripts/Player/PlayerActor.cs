@@ -112,7 +112,11 @@ namespace MagicalFlowers.Player
                     break;
                     //攻撃
                 case ActionType.Attack:
-                    Debug.Log(direction);
+                    if(!StageManager.Instance.CheckAttack(position, direction))
+                    {
+                        ActorState = ActorStateType.ActionEnd;
+                        return;
+                    }
                     var enemy = StageManager.Instance.GetActorData(
                     position.x + direction.x, position.y + direction.y);
                     if (enemy == null)
@@ -155,6 +159,14 @@ namespace MagicalFlowers.Player
                     break;
             }
             ActionState = ActionType.None;
+        }
+        public override int TakeDamage(int damege)
+        {
+            int d = damege - defensePoint;
+            if (d <= 0) { d = 1; }
+            health -= d;
+            GameManager.Instance.gameState = GameManager.GameState.GameOver;
+            return d;
         }
 
         public override string GetActorName()

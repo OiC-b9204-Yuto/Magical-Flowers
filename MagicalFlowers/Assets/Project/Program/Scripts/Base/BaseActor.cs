@@ -57,7 +57,7 @@ namespace MagicalFlowers.Base
             public int         value;
         }
 
-        protected List<effect> effects = new List<effect>();
+        [SerializeField]protected List<effect> effects = new List<effect>();
         public virtual void UpdateAction()
         {
             switch (actorState)
@@ -75,7 +75,7 @@ namespace MagicalFlowers.Base
         protected abstract void ActionEndProcess();
 
         //ダメージを受ける関数
-        public int TakeDamage(int damege)
+        public virtual int TakeDamage(int damege)
         {
             int d = damege - defensePoint;
             if(d <= 0) { d = 1; }

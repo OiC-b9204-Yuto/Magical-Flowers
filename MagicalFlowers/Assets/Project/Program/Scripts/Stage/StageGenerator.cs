@@ -1,13 +1,31 @@
-﻿using System.Collections;
+﻿using MagicalFlowers.Base;
+using MagicalFlowers.Item;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace MagicalFlowers.Stage
 {
     public class StageGenerator : MonoBehaviour
     {
         [SerializeField] List<GameObject> tilePallet;
+        [SerializeField] List<ActorGeneratePoint> Actors;
+        [SerializeField] List<ItemGeneratePoint> Items;
         [SerializeField] Transform generateParent;
+
+        [Serializable]
+       struct ActorGeneratePoint
+        {
+            public BaseActor baseActor;
+            public List<Vector2Int> posList;
+        }
+        [Serializable]
+        struct ItemGeneratePoint
+        {
+            public ItemObject ItemObj;
+            public List<Vector2Int> posList;
+        }
 
         UnityEngine.Grid grid;
         /// <summary>
@@ -15,7 +33,7 @@ namespace MagicalFlowers.Stage
         /// </summary>
         /// <param name="stageData"></param>
         public void Generate(StageData stageData)
-        {
+        {  
             for (int y = 0; y < stageData.map.GetLength(0); y++)
             {
                 for (int x = 0; x < stageData.map.GetLength(1); x++)
@@ -32,6 +50,17 @@ namespace MagicalFlowers.Stage
                     }
                 }
             }
+            ItemGenerate(Items[0].ItemObj,Items[0].posList[0]);
+        }
+
+        public BaseActor ActorGenerate(BaseActor actor , Vector2Int pos)
+        {
+            return Instantiate(actor, StageUtility.StagePos2WorldPos(pos, 0.0f),Quaternion.identity);
+        }
+
+        public ItemObject ItemGenerate(ItemObject item , Vector2Int pos)
+        {
+            return Instantiate(item, StageUtility.StagePos2WorldPos(pos, 0.0f), Quaternion.identity);
         }
 
         private void TileGenerate(int x, int y, int pallet)

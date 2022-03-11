@@ -22,9 +22,9 @@ MonoBehaviour:
         Type: 2
         Name: A
         Description: A
-        effectType: 0
-        value: 0
-        level: 0
-        areaRadius: 0
+        effectType: 1
+        value: 5
+        level: 1
+        areaRadius: 1
         equipmentID: 1
-        availableID: 0
+        availableID: 1

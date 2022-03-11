@@ -92,7 +92,7 @@ namespace MagicalFlowers.Enemy
             PlayerPosition = Player.Position;
             Distance = Vector2Int.Distance(PlayerPosition, position);
             Mathf.Abs(Distance);
-            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(direction.x,-direction.y) * Mathf.Rad2Deg, Vector3.up);
+            direction = PlayerPosition - Position;
 
             if(Distance < 1.5f && StageManager.Instance.CheckAttack(position,direction))//Ú“G’†
             {
@@ -120,6 +120,7 @@ namespace MagicalFlowers.Enemy
                 direction = new Vector2Int(RandomX, RandomY);
                 ActionState = ActionType.Move;
             }
+            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(direction.x, -direction.y) * Mathf.Rad2Deg, Vector3.up);
 
             if (StageManager.Instance.CheckMove(position, direction))
             {

@@ -17,12 +17,12 @@ namespace MagicalFlowers
         [SerializeField] List<BaseActor> updateActorList;
         int updateActorIndex = 0;
 
-        [SerializeField] GameState gameState = GameState.Start;
+        [SerializeField] public GameState gameState = GameState.Start;
 
         public bool IsPause { get; set; }
 
         //ゲームの進行管理用の列挙型
-        enum GameState
+        public enum GameState
         {
             Start,
             Prepare,

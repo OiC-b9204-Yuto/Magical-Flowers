@@ -8,8 +8,7 @@ namespace MagicalFlowers.Item
 {
     public class ItemObject : BaseObject
     {
-        ItemParameter parameter;
-        StageManager stageManager;
+        [SerializeField]ItemParameter parameter;
 
         public ItemParameter pickUp()
         {
@@ -19,14 +18,14 @@ namespace MagicalFlowers.Item
         public void FlowerEffect()
         {
             int radius = (parameter._data as flower).areaRadius;
-            Vector2Int mapLength = stageManager.GetStageLength();
+            Vector2Int mapLength = StageManager.Instance.GetStageLength();
             for (int x = -radius; x < radius; x++)
             {
                 if(x + position.x < 0 || x + position.x > mapLength.x) { continue; }
                 for(int y = -radius; y < radius; y++)
                 {
                     if (y + position.y < 0 || y + position.y > mapLength.y) { continue; }
-                    var actor = stageManager.GetActorData(x, y);
+                    var actor = StageManager.Instance.GetActorData(x, y);
                     if (actor == null) continue;
                     //バフを与えろ
                     actor.AddEffects((parameter._data as flower).effectType, (parameter._data as flower).value);
