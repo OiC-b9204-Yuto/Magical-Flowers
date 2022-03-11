@@ -11,6 +11,8 @@ namespace MagicalFlowers.Enemy
 {
     public class EnemyActor : BaseActor
     {
+        [SerializeField] EnemyParameter parameter;
+ 
         //自分自身の情報
         [SerializeField] [Range(0, 100)] private float PlayerSearchDistance = 15.0f; //プレイヤー発見となる物体の距離
         //プレイヤーの情報
@@ -82,6 +84,11 @@ namespace MagicalFlowers.Enemy
                 ActorState = ActorStateType.ActionBegin;
             }
 
+        }
+
+        public override string GetActorName()
+        {
+            return parameter.name;
         }
     }
 }

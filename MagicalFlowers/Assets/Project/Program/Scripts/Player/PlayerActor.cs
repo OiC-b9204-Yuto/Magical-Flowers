@@ -96,5 +96,10 @@ namespace MagicalFlowers.Player
             //移動完了したので座標を適用する
             position += direction;
         }
+
+        public override string GetActorName()
+        {
+            return "プレイヤー";
+        }
     }
 }

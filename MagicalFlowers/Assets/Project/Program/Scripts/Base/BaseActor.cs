@@ -106,5 +106,7 @@ namespace MagicalFlowers.Base
             eff.value = value;
             effects.Add(eff);
         }
+
+        public abstract string GetActorName();
     }
 }
