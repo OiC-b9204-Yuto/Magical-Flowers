@@ -46,10 +46,16 @@ namespace MagicalFlowers.Base
         }
 
         //ステータス
-        protected int health;
-        protected int maxHealth;
-        protected int attackPoint;
-        protected int defensePoint;
+        [SerializeField] protected int health;
+        [SerializeField] protected int maxHealth;
+        [SerializeField] protected int attackPoint;
+        [SerializeField] protected int defensePoint;
+
+        public int Health => health;
+        public int MaxHealth => maxHealth;
+        public int AttackPoint => attackPoint;
+        public int DefensePoint => defensePoint;
+
         //バフ、デバフ用の効果用リスト（未作成）
         protected struct effect
         {

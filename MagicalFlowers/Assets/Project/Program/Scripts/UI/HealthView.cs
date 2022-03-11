@@ -1,18 +1,29 @@
+using MagicalFlowers.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class HealthView : MonoBehaviour
+namespace MagicalFlowers.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class HealthView : MonoBehaviour
     {
-        
-    }
+        [SerializeField] PlayerActor playerActor;
+        [SerializeField] RectTransform fill;
+        [SerializeField] Text text;
+        [SerializeField] float barMax = 560.0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Start()
+        {
+            playerActor = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerActor>();
+            barMax = this.GetComponent<RectTransform>().rect.width;
+        }
+
+        private void Update()
+        {
+            //ÉoÅ[ÇÃïœçX
+            fill.offsetMax = new Vector2(barMax * ((float)playerActor.Health / playerActor.MaxHealth), fill.offsetMax.y);
+            text.text = playerActor.Health.ToString().PadLeft(4) + " / " + playerActor.MaxHealth.ToString().PadLeft(4);
+        }
     }
 }

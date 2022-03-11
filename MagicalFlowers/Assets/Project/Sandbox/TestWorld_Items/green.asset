@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cd90b970166d8419666b810f8baace, type: 3}
   m_Name: green
   m_EditorClassIdentifier: 
-  name: Gmen
+  name: "\u30B9\u30E9\u30A4\u30E0"
   description: ds
   maxHealth: 10
   attack: 2

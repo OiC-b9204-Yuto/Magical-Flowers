@@ -41,6 +41,11 @@ namespace MagicalFlowers
 
         void Update()
         {
+            if(Input.GetKey(KeyCode.F1))
+            {
+                SceneTransitionManager.Instance.LoadSceneStart("TitleScene");
+            }
+
             switch (gameState)
             {
                 case GameState.Start:
