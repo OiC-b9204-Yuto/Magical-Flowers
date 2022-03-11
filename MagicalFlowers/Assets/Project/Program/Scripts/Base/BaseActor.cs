@@ -75,10 +75,12 @@ namespace MagicalFlowers.Base
         protected abstract void ActionEndProcess();
 
         //ダメージを受ける関数
-        public void TakeDamage(int damege)
+        public int TakeDamage(int damege)
         {
             int d = damege - defensePoint;
-            health -= d > 0 ? d : 1;
+            if(d < 0) { d = 1; }
+            health -= d;
+            return d;
             
         }
         //回復を受ける関数

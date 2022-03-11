@@ -129,7 +129,8 @@ namespace MagicalFlowers.Player
                             atkBonus += item.value;
                         }
                     }
-                    enemy.TakeDamage(attackPoint + atkBonus);
+                    int d = enemy.TakeDamage(attackPoint + atkBonus);
+                    
                     ActorState = ActorStateType.ActionEnd;
                     break;
                 case ActionType.None:
