@@ -25,13 +25,15 @@ namespace MagicalFlowers.UI
         //アイテム用のUIのリスト
         [SerializeField]List<ItemUIContent> itemUIContents;
 
-        EventSystem eventSystem;
+        [SerializeField] Text pageText;
 
+        EventSystem eventSystem;
+        int selectedIndex = -1;
         int currentPage = 0;
 
         void Start()
         {
-            playerInventory = FindObjectOfType<PlayerInventory  >();
+            playerInventory = FindObjectOfType<PlayerInventory>();
             readOnlyInventory = playerInventory.ReadOnlyInventory;
             //共通の初期化
             itemUIContents.ForEach(n => n.button.onClick.AddListener(OpenUseMenu));
@@ -45,28 +47,85 @@ namespace MagicalFlowers.UI
             if (Input.GetKeyDown(KeyCode.I))
             {
                 playerInventory.IsOpen = !playerInventory.IsOpen;
-                playerInventory.IsOpen = !playerInventory.IsOpen;
+                itemListArea.gameObject.SetActive(playerInventory.IsOpen);
                 if (!playerInventory.IsOpen)
                 {
                     useMenu.gameObject.SetActive(playerInventory.IsOpen);
+                    selectedIndex -= 1;
+                }
+                //インベントリを開いたときにアイテムがあるなら一番上にカーソルを合わせる
+                else if(readOnlyInventory.Count > 0)
+                {
+                    itemUIContents[0].button.Select();
+                }
+
+            }
+            // 選択メニューが表示されていないときはページ操作を有効に
+            if (playerInventory.IsOpen && !useMenuFlag)
+            {
+                pageText.text = (currentPage + 1).ToString();
+                if (playerInventory.IsOpen)
+                {
+                    int maxpage = readOnlyInventory.Count / itemUIContents.Count;
+                    if (currentPage > 0)
+                    {
+                        //前のページに
+                        if (Input.GetKeyDown(KeyCode.A))
+                        {
+                            currentPage--;
+                            ChangeViewUpdate();
+                        }
+                    }
+
+                    if (currentPage < maxpage)
+                    {
+                        //次のページに
+                        if (Input.GetKeyDown(KeyCode.D))
+                        {
+                            currentPage++;
+                            ChangeViewUpdate();
+                        }
+                    }
                 }
             }
         }
 
-        //public void OpneInventoryView()
-        //{
-        //}
+        public void SelectedItemUse()
+        {
+            playerInventory.ItemUse(selectedIndex + currentPage * readOnlyInventory.Count);
+            ChangeViewUpdate();
+        }
+
+        public void SelectedItemThrow()
+        {
+            playerInventory.ItemThrow(selectedIndex + currentPage * readOnlyInventory.Count);
+            ChangeViewUpdate();
+        }
+
+        public void SelectedItemDrop()
+        {
+            playerInventory.ItemDrop(selectedIndex + currentPage * readOnlyInventory.Count);
+            ChangeViewUpdate();
+        }
+
+        public void SelectedItemCncel()
+        {
+            itemUIContents[selectedIndex].button.Select();
+            CloseUseMenu();
+        }
 
         //ページを変更したときなどの画面の更新
         private void ChangeViewUpdate()
         {
+            int page = (currentPage * itemUIContents.Count);
+
             for (int i = 0; i < itemUIContents.Count; i++)
             {
                 //アイテムがあれば値を設定
-                if (i < readOnlyInventory.Count)
+                if (i + page < readOnlyInventory.Count)
                 {
                     itemUIContents[i].button.gameObject.SetActive(true);
-                    itemUIContents[i].text.text = readOnlyInventory[i]._data.Name;
+                    itemUIContents[i].text.text = readOnlyInventory[i + page]._data.Name;
                 }
                 else
                 {
@@ -83,10 +142,14 @@ namespace MagicalFlowers.UI
             {
                 return;
             }
+            //選択したアイテムのIndex保存
+            selectedIndex = itemUIContents.FindIndex(n => ReferenceEquals(n.button.gameObject, eventSystem.currentSelectedGameObject));
             //使用メニューの表示、座標調整
             useMenu.gameObject.SetActive(true);
             useMenu.anchoredPosition = new Vector2(useMenu.anchoredPosition.x, select.anchoredPosition.y);
             useMenuFlag = true;
+            //メニューの一番上の項目を選択状態に
+            useMenu.GetChild(0).GetComponent<Selectable>().Select();
         }
 
         public void CloseUseMenu()

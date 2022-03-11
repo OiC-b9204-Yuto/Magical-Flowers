@@ -11,18 +11,18 @@ namespace MagicalFlowers.UI
         [SerializeField] PlayerActor playerActor;
         [SerializeField] RectTransform fill;
         [SerializeField] Text text;
-        const float barMax = 560.0f;
+        [SerializeField] float barMax = 560.0f;
 
         private void Start()
         {
             playerActor = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerActor>();
+            barMax = this.GetComponent<RectTransform>().rect.width;
         }
 
         private void Update()
         {
             //ÉoÅ[ÇÃïœçX
-            if(playerActor.MaxHealth != 0)
-                fill.sizeDelta = new Vector2(barMax * (1 - playerActor.Health / playerActor.MaxHealth), fill.sizeDelta.y);
+            fill.offsetMax = new Vector2(barMax * ((float)playerActor.Health / playerActor.MaxHealth), fill.offsetMax.y);
             text.text = playerActor.Health.ToString().PadLeft(4) + " / " + playerActor.MaxHealth.ToString().PadLeft(4);
         }
     }
