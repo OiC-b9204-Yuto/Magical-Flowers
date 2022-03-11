@@ -41,17 +41,38 @@ namespace MagicalFlowers.Enemy
 
         protected override void ActionBeginProcess()
         {
-            var step = 5 * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-            if (transform.position == targetPosition)
+            switch (ActionState)
             {
-                ActorState = ActorStateType.ActionEnd;
+                case ActionType.Move:
+                    var step = 5 * Time.deltaTime;
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                    if (transform.position == targetPosition)
+                    {
+                        ActorState = ActorStateType.ActionEnd;
+                    }
+                    break;
+                case ActionType.Attack:
+                    
+                    ActorState = ActorStateType.ActionEnd;
+                    break;
+                case ActionType.None:
+                    break;
             }
         }
 
         protected override void ActionEndProcess()
         {
-            position += direction;
+            switch (ActionState)
+            {
+                case ActionType.Move:
+                    position += direction;
+                    break;
+                case ActionType.Attack:
+                    break;
+                case ActionType.None:
+                    break;
+            }
+            ActionState = ActionType.None;
         }
 
         protected override void InputWaitProcess()
@@ -59,8 +80,22 @@ namespace MagicalFlowers.Enemy
             PlayerPosition = Player.Position;
             Distance = Vector2Int.Distance(PlayerPosition, position);
             Mathf.Abs(Distance);
-            
-            if (Distance > PlayerSearchDistance) //プレイヤーとの距離が遠い時
+            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(direction.x,-direction.y) * Mathf.Rad2Deg, Vector3.up);
+
+            if(Distance < 1.5f && StageManager.Instance.CheckAttack(position,direction))//接敵中
+            {
+                ActionState = ActionType.Attack;
+                ActorState = ActorStateType.ActionBegin;
+            }
+            else if(Distance <= PlayerSearchDistance)//プレイヤーとの距離が近い時
+            {
+                this.transform.LookAt(Player.transform);
+                this.GetComponent<Pathfinding>().FindPath(transform.position);
+                //DebugLogger.Log("x:" + (GridGenerator.Instance.FinalPath[0].GridX).ToString() + " / " + "y" + (GridGenerator.Instance.FinalPath[0].GridY).ToString());
+                direction = new Vector2Int(GridGenerator.Instance.FinalPath[0].GridX, GridGenerator.Instance.FinalPath[0].GridY) - position;
+                ActionState = ActionType.Move;
+            }
+            else //プレイヤーとの距離が遠い時
             {
                 Vector3 diff = this.transform.position - LatestPositon;
                 LatestPositon = this.transform.position;
@@ -71,14 +106,9 @@ namespace MagicalFlowers.Enemy
                 RandomX = Random.Range(-1, 2);
                 RandomY = Random.Range(-1, 2);
                 direction = new Vector2Int(RandomX, RandomY);
+                ActionState = ActionType.Move;
             }
-            else //プレイヤーとの距離が近い時
-            {
-                this.transform.LookAt(Player.transform);
-                this.GetComponent<Pathfinding>().FindPath(transform.position);
-                //DebugLogger.Log("x:" + (GridGenerator.Instance.FinalPath[0].GridX).ToString() + " / " + "y" + (GridGenerator.Instance.FinalPath[0].GridY).ToString());
-                direction = new Vector2Int(GridGenerator.Instance.FinalPath[0].GridX, GridGenerator.Instance.FinalPath[0].GridY) - position;
-            }
+
             if (StageManager.Instance.CheckMove(position, direction))
             {
                 targetPosition = transform.position + new Vector3(direction.x, 0, -direction.y);
