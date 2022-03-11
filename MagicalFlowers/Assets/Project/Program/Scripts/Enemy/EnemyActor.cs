@@ -6,6 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MagicalFlowers.UI;
+using MagicalFlowers.Item;
 
 namespace MagicalFlowers.Enemy
 {
@@ -52,7 +54,17 @@ namespace MagicalFlowers.Enemy
                     }
                     break;
                 case ActionType.Attack:
-                    
+                    int atkBonus = 0;
+
+                    foreach (var item in effects)
+                    {
+                        if (item.Type == EffectType.AtkUp)
+                        {
+                            atkBonus += item.value;
+                        }
+                    }
+                    int d = Player.TakeDamage(attackPoint + atkBonus);
+                    MessageLogManager.Instance.AttackLog(this, Player, d);
                     ActorState = ActorStateType.ActionEnd;
                     break;
                 case ActionType.None:

@@ -4,6 +4,7 @@ using MagicalFlowers.Item;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MagicalFlowers.UI;
 
 namespace MagicalFlowers.Player
 {
@@ -130,7 +131,7 @@ namespace MagicalFlowers.Player
                         }
                     }
                     int d = enemy.TakeDamage(attackPoint + atkBonus);
-                    
+                    MessageLogManager.Instance.AttackLog(this, enemy, d);   
                     ActorState = ActorStateType.ActionEnd;
                     break;
                 case ActionType.None:

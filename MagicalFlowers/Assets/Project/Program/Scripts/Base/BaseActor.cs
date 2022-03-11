@@ -78,7 +78,7 @@ namespace MagicalFlowers.Base
         public int TakeDamage(int damege)
         {
             int d = damege - defensePoint;
-            if(d < 0) { d = 1; }
+            if(d <= 0) { d = 1; }
             health -= d;
             return d;
             

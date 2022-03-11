@@ -15,7 +15,7 @@ public class UnityInputProvider : IPlayerInputProvider
 
     public bool GetAttackButton()
     {
-        return Input.GetKey(KeyCode.Space);
+        return Input.GetKeyDown(KeyCode.Space);
     }
 
     public bool GetPickUpButton()
