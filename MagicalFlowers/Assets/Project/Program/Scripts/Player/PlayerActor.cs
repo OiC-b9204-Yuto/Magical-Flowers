@@ -1,5 +1,6 @@
 ﻿using MagicalFlowers.Base;
 using MagicalFlowers.Stage;
+using MagicalFlowers.Item;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,8 +46,16 @@ namespace MagicalFlowers.Player
 
         protected override void InputWaitProcess()
         {
-            inputValue = inputProvider.GetMoveVector();
             bool inputCheck = false;
+
+            //攻撃宣言時
+            if(inputProvider.GetAttackButton())
+            {
+                ActionState = ActionType.Attack;
+                ActorState = ActorStateType.ActionBegin;
+            }
+
+            inputValue = inputProvider.GetMoveVector();
             //斜め移動モード用の入力確認分岐
             if (diagonalMode)
             {
@@ -56,6 +65,7 @@ namespace MagicalFlowers.Player
             {
                 inputCheck = inputValue.x != 0 || inputValue.y != 0;
             }
+            
 
             if (inputCheck)
             {
@@ -71,6 +81,7 @@ namespace MagicalFlowers.Player
                     if (StageManager.Instance.CheckMove(position ,direction))
                     {
                         targetPosition = transform.position + new Vector3(direction.x, 0, -direction.y);
+                        ActionState = ActionType.Move;
                         ActorState = ActorStateType.ActionBegin;
                         AudioManager.Instance.SE.PlayOneShot(FootStepSound);
                         moveInputTimer = 0;
@@ -86,21 +97,62 @@ namespace MagicalFlowers.Player
 
         protected override void ActionBeginProcess()
         {
-            //移動中処理
-            animator.SetBool("isMove", true);          
-            var step = 5 * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
-            if (transform.position == targetPosition)
+            switch (ActionState)
             {
-                ActorState = ActorStateType.ActionEnd;
+                //移動中処理
+                case ActionType.Move:
+                    animator.SetBool("isMove", true);
+                    var step = 5 * Time.deltaTime;
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                    if (transform.position == targetPosition)
+                    {
+                        ActorState = ActorStateType.ActionEnd;
+                    }
+                    break;
+                    //攻撃
+                case ActionType.Attack:
+                    Debug.Log(direction);
+                    var enemy = StageManager.Instance.GetActorData(
+                    position.x + direction.x, position.y + direction.y);
+                    if (enemy == null)
+                    {
+                        ActorState = ActorStateType.ActionEnd;
+                        return;
+                    }
+
+                    int atkBonus = 0;
+                    
+                    foreach (var item in effects)
+                    {
+                        if (item.Type == EffectType.AtkUp)
+                        {
+                            atkBonus += item.value;
+                        }
+                    }
+                    enemy.TakeDamage(attackPoint + atkBonus);
+                    ActorState = ActorStateType.ActionEnd;
+                    break;
+                case ActionType.None:
+                    break;
             }
+            
         }
 
         protected override void ActionEndProcess()
         {
-            //移動完了したので座標を適用する
-            animator.SetBool("isMove", false);   
-            position += direction;
+            switch (ActionState)
+            {
+                case ActionType.Move:
+                    //移動完了したので座標を適用する
+                    animator.SetBool("isMove", false);
+                    position += direction;
+                    break;
+                case ActionType.Attack:
+                    break;
+                case ActionType.None:
+                    break;
+            }
+            ActionState = ActionType.None;
         }
     }
 }

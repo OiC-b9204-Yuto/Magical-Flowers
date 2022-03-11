@@ -31,10 +31,18 @@ namespace MagicalFlowers.Base
 
         public void ActorActionStateReset() { actorState = ActorStateType.InputWait; }
 
+        private ActionType actionState;
+        public ActionType ActionState
+        {
+            get { return actionState; }
+            set { if (actionState == value) { return; } actionState = value; }
+        }
         public enum ActionType
         {
             Move,
-            Attack
+            Attack,
+
+            None
         }
 
         //ステータス
@@ -49,7 +57,7 @@ namespace MagicalFlowers.Base
             public int         value;
         }
 
-        protected List<effect> effects;
+        protected List<effect> effects = new List<effect>();
         public virtual void UpdateAction()
         {
             switch (actorState)

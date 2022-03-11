@@ -27,7 +27,7 @@ namespace MagicalFlowers.Item
                 {
                     if (y + position.y < 0 || y + position.y > mapLength.y) { continue; }
                     var actor = stageManager.GetActorData(x, y);
-                    if (!actor) continue;
+                    if (actor == null) continue;
                     //バフを与えろ
                     actor.AddEffects((parameter._data as flower).effectType, (parameter._data as flower).value);
                 }
