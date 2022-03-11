@@ -94,23 +94,25 @@ namespace MagicalFlowers.UI
         {
             playerInventory.ItemUse(selectedIndex + currentPage * readOnlyInventory.Count);
             ChangeViewUpdate();
+            CloseUseMenu();
         }
 
         public void SelectedItemThrow()
         {
             playerInventory.ItemThrow(selectedIndex + currentPage * readOnlyInventory.Count);
             ChangeViewUpdate();
+            CloseUseMenu();
         }
 
         public void SelectedItemDrop()
         {
             playerInventory.ItemDrop(selectedIndex + currentPage * readOnlyInventory.Count);
             ChangeViewUpdate();
+            CloseUseMenu();
         }
 
         public void SelectedItemCncel()
         {
-            itemUIContents[selectedIndex].button.Select();
             CloseUseMenu();
         }
 
@@ -157,6 +159,7 @@ namespace MagicalFlowers.UI
             //使用メニューの非表示
             useMenu.gameObject.SetActive(false);
             useMenuFlag = false;
+            itemUIContents[selectedIndex].button.Select();
         }
 
         [Serializable]

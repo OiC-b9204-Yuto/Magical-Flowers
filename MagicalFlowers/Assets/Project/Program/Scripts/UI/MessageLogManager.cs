@@ -19,11 +19,19 @@ namespace MagicalFlowers.UI
             logView.AddLogText($"{player.GetActorName()}の攻撃！<color=yellow>{target.GetActorName()}</color>に<color=red>{amount}</color>のダメージをあたえた！");
         }
         /// <summary>
-        /// 第三者（プレイヤー以外）が攻撃するときのログ出力関数
+        /// 攻撃結果のログ出力関数
         /// </summary>
         public void AttackLog(BaseActor attaker, BaseActor target, int amount)
         {
-            logView.AddLogText($"<color=yellow>{attaker.GetActorName()}</color>の攻撃！<color=yellow>{target.GetActorName()}</color>は<color=red>{amount}</color>のダメージをうけた！");
+            var player = attaker as PlayerActor;
+            if (!player) 
+            {
+                logView.AddLogText($"<color=yellow>{attaker.GetActorName()}</color>の攻撃！<color=yellow>{target.GetActorName()}</color>は<color=red>{amount}</color>のダメージをうけた！");
+            }
+            else
+            {
+                AttackLog(player, target, amount);
+            }
         }
 
         public void OtherDamageLog(PlayerActor player, int amount)
@@ -35,6 +43,7 @@ namespace MagicalFlowers.UI
         {
             logView.AddLogText($"<color=yellow>{baseActor.GetActorName()}</color>は<color=red>{amount}</color>のダメージをうけた");
         }
+
 
         public void OutputLog(string message)
         {

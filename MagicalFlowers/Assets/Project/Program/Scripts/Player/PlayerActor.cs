@@ -54,6 +54,9 @@ namespace MagicalFlowers.Player
                 return;
             }
 
+            diagonalMode = inputProvider.GetDiagonalModeButton();
+            directionMode = inputProvider.GetDirectionModeButton();
+
             bool inputCheck = false;
 
             //攻撃宣言時
@@ -141,8 +144,7 @@ namespace MagicalFlowers.Player
                             atkBonus += item.value;
                         }
                     }
-                    int d = enemy.TakeDamage(attackPoint + atkBonus);
-                    MessageLogManager.Instance.AttackLog(this, enemy, d);   
+                    int d = enemy.TakeDamage(attackPoint + atkBonus, this);   
                     ActorState = ActorStateType.ActionEnd;
                     break;
                 case ActionType.None:
@@ -167,12 +169,16 @@ namespace MagicalFlowers.Player
             }
             ActionState = ActionType.None;
         }
-        public override int TakeDamage(int damege)
+        public override int TakeDamage(int damege, BaseActor actor)
         {
             int d = damege - defensePoint;
             if (d <= 0) { d = 1; }
             health -= d;
-            GameManager.Instance.gameState = GameManager.GameState.GameOver;
+            MessageLogManager.Instance.AttackLog(actor, this, d);
+            if (health <= 0)
+            {
+                GameManager.Instance.gameState = GameManager.GameState.GameOver;
+            }
             return d;
         }
 

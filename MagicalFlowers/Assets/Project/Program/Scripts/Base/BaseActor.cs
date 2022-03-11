@@ -45,11 +45,15 @@ namespace MagicalFlowers.Base
             None
         }
 
+        public bool IsDead { get; protected set; }
+
         //ステータス
         [SerializeField] protected int health;
         [SerializeField] protected int maxHealth;
         [SerializeField] protected int attackPoint;
         [SerializeField] protected int defensePoint;
+        
+        public int currentExp;
 
         public int Health => health;
         public int MaxHealth => maxHealth;
@@ -81,7 +85,7 @@ namespace MagicalFlowers.Base
         protected abstract void ActionEndProcess();
 
         //ダメージを受ける関数
-        public virtual int TakeDamage(int damege)
+        public virtual int TakeDamage(int damege, BaseActor actor)
         {
             int d = damege - defensePoint;
             if(d <= 0) { d = 1; }

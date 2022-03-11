@@ -50,7 +50,21 @@ namespace MagicalFlowers.Stage
                     }
                 }
             }
-            ItemGenerate(Items[0].ItemObj,Items[0].posList[0]);
+            foreach (var actor in Actors)
+            {
+                foreach (var pos in actor.posList)
+                {
+                    ActorGenerate(actor.baseActor, pos);
+                }
+            }
+
+            foreach (var item in Items)
+            {
+                foreach (var pos in item.posList)
+                {
+                    ItemGenerate(item.ItemObj, pos);
+                }
+            }
         }
 
         public BaseActor ActorGenerate(BaseActor actor , Vector2Int pos)

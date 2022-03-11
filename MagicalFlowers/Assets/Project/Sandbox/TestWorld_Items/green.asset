@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: "\u30B9\u30E9\u30A4\u30E0"
   description: ds
-  maxHealth: 10
-  attack: 2
-  defense: 0
+  maxHealth: 15
+  attack: 3
+  defense: 1
   dropFlower: {fileID: 0}
-  exp: 1
+  exp: 3

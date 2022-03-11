@@ -39,6 +39,12 @@ namespace MagicalFlowers.Enemy
             StageManager.Instance.AddActor(this);
             Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerActor>();
             position = StageUtility.WorldPos2StagePos(transform.position);
+            maxHealth = parameter.MaxHealth;
+            health = parameter.MaxHealth;
+            attackPoint = parameter.Attack;
+            defensePoint = parameter.Defense;
+
+            GameManager.Instance.AddActor(this);
         }
 
         protected override void ActionBeginProcess()
@@ -63,8 +69,7 @@ namespace MagicalFlowers.Enemy
                             atkBonus += item.value;
                         }
                     }
-                    int d = Player.TakeDamage(attackPoint + atkBonus);
-                    MessageLogManager.Instance.AttackLog(this, Player, d);
+                    int d = Player.TakeDamage(attackPoint + atkBonus, this);
                     ActorState = ActorStateType.ActionEnd;
                     break;
                 case ActionType.None:
@@ -132,7 +137,23 @@ namespace MagicalFlowers.Enemy
 
         public override string GetActorName()
         {
-            return parameter.name;
+            return parameter.Name;
+        }
+
+        public override int TakeDamage(int damege, BaseActor actor)
+        {
+            int d = damege - defensePoint;
+            if (d <= 0) { d = 1; }
+            health -= d;
+            MessageLogManager.Instance.AttackLog(actor, this, d);
+            if (health <= 0)
+            {
+                IsDead = true;
+                Destroy(this.gameObject);
+                actor.currentExp += parameter.Exp;
+                MessageLogManager.Instance.OutputLog($"<color=yellow>{this.GetActorName()}</color>を倒した！{actor.GetActorName()}は<color=cyan>{parameter.Exp}</color>の経験値を入手！");
+            }
+            return d;
         }
     }
 }

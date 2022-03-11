@@ -30,11 +30,11 @@ public class UnityInputProvider : IPlayerInputProvider
 
     public bool GetDiagonalModeButton()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKey(KeyCode.LeftControl);
     }
 
     public bool GetDirectionModeButton()
     {
-        throw new System.NotImplementedException();
+        return Input.GetKey(KeyCode.LeftShift);
     }
 }

@@ -3,6 +3,7 @@ using MagicalFlowers.Common;
 using MagicalFlowers.Enemy;
 using MagicalFlowers.Player;
 using MagicalFlowers.Stage;
+using MagicalFlowers.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace MagicalFlowers
 
         public bool IsPause { get; set; }
 
+        bool endMessage = false;
         //ゲームの進行管理用の列挙型
         public enum GameState
         {
@@ -84,29 +86,91 @@ namespace MagicalFlowers
             //アクションを終了していない場合はそのアクターのアクションがActionEndになるまで他は呼ばない
             for (int i = updateActorIndex; i < updateActorList.Count; i++)
             {
+                //Nullチェック用ループ
+                while (i < updateActorList.Count)
+                {
+                    if (updateActorList[i])
+                    {
+                        break;
+                    }
+                    updateActorList.RemoveAt(i);
+
+                    if (i >= updateActorList.Count - 1)
+                    {
+                        AllActorStateReset();
+                        break;
+                    }
+                }
+
+                //更新処理
                 if (updateActorList[i].ActorState != BaseActor.ActorStateType.ActionEnd)
                 {
                     updateActorList[i].UpdateAction();
                     updateActorIndex = i;
                     break;
                 }
-                if (updateActorIndex == updateActorList.Count - 1)
+
+                //リセット
+                if (updateActorIndex >= updateActorList.Count - 1)
                 {
                     //すべてのアクションが終わったのでリセットする
-                    updateActorList.ForEach(n => n.ActorActionStateReset());
-                    updateActorIndex = 0;
+                    AllActorStateReset();
+                }
+
+                if (updateActorList.Count == 1)
+                {
+                    gameState = GameState.GameClear;
                 }
             }
         }
 
+        private void AllActorStateReset()
+        {
+            updateActorList.ForEach(n => n.ActorActionStateReset());
+            updateActorIndex = 0;
+        }
+
         void GameClearUpdate()
         {
-
+            if (!endMessage)
+            {
+                endMessage = true;
+                MessageLogManager.Instance.OutputLog($"<color=green>ゲームクリア！</color>");
+                MessageLogManager.Instance.OutputLog($"エンターキーでタイトルに戻る");
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneTransitionManager.Instance.LoadSceneStart("TitleScene");
+            }
         }
 
         void GameOverUpdate()
         {
+            if (!endMessage)
+            {
+                endMessage = true;
+                MessageLogManager.Instance.OutputLog($"<color=red>ゲームオーバー</color>");
+                MessageLogManager.Instance.OutputLog($"エンターキーでタイトルに戻る");
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneTransitionManager.Instance.LoadSceneStart("TitleScene");
+            }
+        }
 
+        /// <summary>
+        /// ゲームマネージャーにアクターを登録する関数（重複する場合はfalseで登録されない）
+        /// </summary>
+        /// <param name="actor"></param>
+        /// <returns></returns>
+        public bool AddActor(BaseActor actor)
+        {
+            if (updateActorList.Exists(n => ReferenceEquals(n, actor)))
+            {
+                return false;
+            }
+            updateActorList.Add(actor);
+            return true;
         }
     }
 }

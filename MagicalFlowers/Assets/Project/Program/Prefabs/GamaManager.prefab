@@ -44,6 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerActor: {fileID: 0}
-  updateActorList:
-  - {fileID: 0}
+  updateActorList: []
   gameState: 0

@@ -514,7 +514,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783485043583462080}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1783485043788398768}
+        m_TargetAssemblyTypeName: MagicalFlowers.UI.InventoryView, Assembly-CSharp
+        m_MethodName: SelectedItemCncel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1783485043626234678
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +647,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783485043626234673}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1783485043788398768}
+        m_TargetAssemblyTypeName: MagicalFlowers.UI.InventoryView, Assembly-CSharp
+        m_MethodName: SelectedItemThrow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1783485043769696394
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +990,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783485043889183943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1783485043788398768}
+        m_TargetAssemblyTypeName: MagicalFlowers.UI.InventoryView, Assembly-CSharp
+        m_MethodName: SelectedItemUse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1783485043963713698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1352,7 +1388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783485044066644266}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1783485043788398768}
+        m_TargetAssemblyTypeName: MagicalFlowers.UI.InventoryView, Assembly-CSharp
+        m_MethodName: SelectedItemDrop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1783485044105584983
 GameObject:
   m_ObjectHideFlags: 0
