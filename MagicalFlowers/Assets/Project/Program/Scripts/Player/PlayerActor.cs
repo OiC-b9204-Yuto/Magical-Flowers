@@ -154,5 +154,10 @@ namespace MagicalFlowers.Player
             }
             ActionState = ActionType.None;
         }
+
+        public override string GetActorName()
+        {
+            return "プレイヤー";
+        }
     }
 }
