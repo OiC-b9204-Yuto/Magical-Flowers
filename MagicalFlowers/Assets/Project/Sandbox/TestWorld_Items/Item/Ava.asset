@@ -17,7 +17,7 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: Available, ns: MagicalFlowers.Item, asm: Assembly-CSharp}
+      type: {class: available, ns: MagicalFlowers.Item, asm: Assembly-CSharp}
       data:
         Name: Available
         Description: You'r got Available

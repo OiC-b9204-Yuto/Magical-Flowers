@@ -9,6 +9,8 @@ namespace MagicalFlowers.Player
 {
     public class PlayerActor : BaseActor
     {
+        public PlayerInventory inventory;
+
         //移動先の座標
         protected Vector3 targetPosition;
         //斜め移動モード用フラグ
@@ -46,6 +48,11 @@ namespace MagicalFlowers.Player
 
         protected override void InputWaitProcess()
         {
+            if (inventory.IsOpen)
+            {
+                return;
+            }
+
             bool inputCheck = false;
 
             //攻撃宣言時
