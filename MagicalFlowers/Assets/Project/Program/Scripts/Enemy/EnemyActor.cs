@@ -85,6 +85,7 @@ namespace MagicalFlowers.Enemy
                     ActorState = ActorStateType.ActionEnd;
                     break;
                 case ActionType.None:
+                    ActorState = ActorStateType.ActionEnd;
                     break;
             }
         }
@@ -139,12 +140,19 @@ namespace MagicalFlowers.Enemy
             }
             transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(direction.x, -direction.y) * Mathf.Rad2Deg, Vector3.up);
 
-            if (StageManager.Instance.CheckMove(position, direction))
+            if (ActionState != ActionType.Attack) 
             {
-                targetPosition = transform.position + new Vector3(direction.x, 0, -direction.y);
-                ActorState = ActorStateType.ActionBegin;
+                if (StageManager.Instance.CheckMove(position, direction))
+                {
+                    targetPosition = transform.position + new Vector3(direction.x, 0, -direction.y);
+                    ActorState = ActorStateType.ActionBegin;
+                }
+                else
+                {
+                    ActionState = ActionType.None;
+                    ActorState = ActorStateType.ActionBegin;
+                }
             }
-
         }
 
         public override string GetActorName()
