@@ -86,22 +86,14 @@ namespace MagicalFlowers
             //アクションを終了していない場合はそのアクターのアクションがActionEndになるまで他は呼ばない
             for (int i = updateActorIndex; i < updateActorList.Count; i++)
             {
-                //Nullチェック用ループ
-                while (i < updateActorList.Count)
+                //Nullチェック
+                if (!updateActorList[i])
                 {
-                    if (updateActorList[i])
-                    {
-                        break;
-                    }
                     updateActorList.RemoveAt(i);
-
-                    if (i >= updateActorList.Count - 1)
-                    {
-                        AllActorStateReset();
-                        break;
-                    }
+                    i--;
+                    continue;
                 }
-
+                
                 //更新処理
                 if (updateActorList[i].ActorState != BaseActor.ActorStateType.ActionEnd)
                 {
@@ -170,6 +162,17 @@ namespace MagicalFlowers
                 return false;
             }
             updateActorList.Add(actor);
+            return true;
+        }
+
+        public bool RemoveActor(BaseActor actor)
+        {
+            int index = updateActorList.FindIndex(n => ReferenceEquals(n, actor));
+            if (index < 0)
+            {
+                return false;
+            }
+            updateActorList.RemoveAt(index);
             return true;
         }
     }

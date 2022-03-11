@@ -20,11 +20,6 @@ namespace MagicalFlowers.Stage
             stageGenerator.Generate(stageData);
         }
 
-        void Update()
-        {
-            
-        }
-
         public bool CheckMove(Vector2Int pos, Vector2Int dir)
         {
             //配列の範囲外の場合はfalse
@@ -86,6 +81,17 @@ namespace MagicalFlowers.Stage
         public void AddActor(BaseActor baseActor)
         {
             stageData.actors.Add(baseActor);
+        }
+
+        public bool RemoveActor(BaseActor actor)
+        {
+            int index = stageData.actors.FindIndex(n => ReferenceEquals(n, actor));
+            if (index < 0)
+            {
+                return false;
+            }
+            stageData.actors.RemoveAt(index);
+            return true;
         }
 
         public Vector2Int GetStageLength()

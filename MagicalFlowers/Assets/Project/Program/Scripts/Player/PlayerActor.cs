@@ -26,7 +26,6 @@ namespace MagicalFlowers.Player
         float moveInputTimer = 0;
         const float moveInputTime = 0.1f;
 
-
         //入力用プロバイダークラス
         IPlayerInputProvider inputProvider;
 
@@ -76,7 +75,6 @@ namespace MagicalFlowers.Player
             {
                 inputCheck = inputValue.x != 0 || inputValue.y != 0;
             }
-            
 
             if (inputCheck)
             {
@@ -103,7 +101,6 @@ namespace MagicalFlowers.Player
             {
                 moveInputTimer = 0;
             }
-
         }
 
         protected override void ActionBeginProcess()

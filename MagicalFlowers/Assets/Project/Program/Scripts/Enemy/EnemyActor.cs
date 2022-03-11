@@ -29,6 +29,8 @@ namespace MagicalFlowers.Enemy
         int RandomY;
         //A*
         Node node;
+
+        [SerializeField] CameraRenderCheck cameraRenderCheck;
         void Start()
         {
             Initialize();
@@ -52,8 +54,18 @@ namespace MagicalFlowers.Enemy
             switch (ActionState)
             {
                 case ActionType.Move:
-                    var step = 5 * Time.deltaTime;
-                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                   
+                    if (!cameraRenderCheck || cameraRenderCheck.IsRender)
+                    {
+                        var step = 5 * Time.deltaTime;
+                        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+                    }
+                    else
+                    {
+                        //カメラに写っていない場合はすぐに移動させる
+                        transform.position = targetPosition;
+                    }
+
                     if (transform.position == targetPosition)
                     {
                         ActorState = ActorStateType.ActionEnd;
@@ -108,7 +120,7 @@ namespace MagicalFlowers.Enemy
             {
                 this.transform.LookAt(Player.transform);
                 this.GetComponent<Pathfinding>().FindPath(transform.position);
-                DebugLogger.Log("x:" + (GridGenerator.Instance.FinalPath[0].GridX).ToString() + " / " + "y" + (GridGenerator.Instance.FinalPath[0].GridY).ToString());
+                //DebugLogger.Log("x:" + (GridGenerator.Instance.FinalPath[0].GridX).ToString() + " / " + "y" + (GridGenerator.Instance.FinalPath[0].GridY).ToString());
                 direction = new Vector2Int(GridGenerator.Instance.FinalPath[0].GridX, GridGenerator.Instance.FinalPath[0].GridY) - position;
                 ActionState = ActionType.Move;
             }
@@ -149,6 +161,7 @@ namespace MagicalFlowers.Enemy
             if (health <= 0)
             {
                 IsDead = true;
+                StageManager.Instance.RemoveActor(this);
                 Destroy(this.gameObject);
                 actor.currentExp += parameter.Exp;
                 MessageLogManager.Instance.OutputLog($"<color=yellow>{this.GetActorName()}</color>を倒した！{actor.GetActorName()}は<color=cyan>{parameter.Exp}</color>の経験値を入手！");
