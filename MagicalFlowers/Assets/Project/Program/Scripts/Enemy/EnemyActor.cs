@@ -73,6 +73,7 @@ namespace MagicalFlowers.Enemy
             else //ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚ª‹ß‚¢
             {
                 this.transform.LookAt(Player.transform);
+                this.GetComponent<Pathfinding>().FindPath(transform.position);
                 DebugLogger.Log("x:" + (GridGenerator.Instance.FinalPath[0].GridX).ToString() + " / " + "y" + (GridGenerator.Instance.FinalPath[0].GridY).ToString());
                 direction = new Vector2Int(GridGenerator.Instance.FinalPath[0].GridX, GridGenerator.Instance.FinalPath[0].GridY) - position;
             }

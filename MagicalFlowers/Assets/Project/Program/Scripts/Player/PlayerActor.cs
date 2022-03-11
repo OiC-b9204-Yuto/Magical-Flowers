@@ -10,12 +10,14 @@ namespace MagicalFlowers.Player
     {
         //移動先の座標
         protected Vector3 targetPosition;
-
         //斜め移動モード用フラグ
-        [SerializeField]bool diagonalMode = false;
+        [SerializeField] bool diagonalMode = false;
         //方向転換モード用フラグ
         [SerializeField] bool directionMode = false;
-
+        //足音
+        [SerializeField] AudioClip FootStepSound;
+        //アニメーター
+        Animator animator;
         Vector2Int inputValue;
         float moveInputTimer = 0;
         const float moveInputTime = 0.1f;
@@ -26,6 +28,7 @@ namespace MagicalFlowers.Player
 
         private void Awake()
         {
+            animator = this.GetComponent<Animator>();
             inputProvider = new UnityInputProvider();
         }
 
@@ -69,6 +72,7 @@ namespace MagicalFlowers.Player
                     {
                         targetPosition = transform.position + new Vector3(direction.x, 0, -direction.y);
                         ActorState = ActorStateType.ActionBegin;
+                        AudioManager.Instance.SE.PlayOneShot(FootStepSound);
                         moveInputTimer = 0;
                     }
                 }
@@ -83,6 +87,7 @@ namespace MagicalFlowers.Player
         protected override void ActionBeginProcess()
         {
             //移動中処理
+            animator.SetBool("isMove", true);          
             var step = 5 * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
             if (transform.position == targetPosition)
@@ -94,6 +99,7 @@ namespace MagicalFlowers.Player
         protected override void ActionEndProcess()
         {
             //移動完了したので座標を適用する
+            animator.SetBool("isMove", false);   
             position += direction;
         }
     }
