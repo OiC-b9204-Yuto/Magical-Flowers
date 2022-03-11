@@ -50,14 +50,12 @@ namespace MagicalFlowers.UI
                 {
                     useMenu.gameObject.SetActive(playerInventory.IsOpen);
                 }
-
             }
         }
 
-        public void OpneInventoryView()
-        {
-
-        }
+        //public void OpneInventoryView()
+        //{
+        //}
 
         //ページを変更したときなどの画面の更新
         private void ChangeViewUpdate()

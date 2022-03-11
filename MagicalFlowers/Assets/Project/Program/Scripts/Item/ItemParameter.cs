@@ -11,7 +11,7 @@ namespace MagicalFlowers.Item
     public class ItemParameter : ScriptableObject
     {
         [SerializeReference] public data _data;
-
+#if UNITY_EDITOR
         [MenuItem("CONTEXT/ItemParameter/Set Equipment")]
         public static void SetEquipment(MenuCommand command)
         {
@@ -36,7 +36,7 @@ namespace MagicalFlowers.Item
             itemParameter._data.Type = ItemType.Flower;
             EditorUtility.SetDirty(itemParameter);
         }
-        
+#endif
     }
 
     [Serializable]
