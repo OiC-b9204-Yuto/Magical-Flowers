@@ -1170,9 +1170,9 @@ Transform:
   m_Children:
   - {fileID: 225464680}
   - {fileID: 596725487}
-  - {fileID: 89618948}
-  - {fileID: 1823839388}
   - {fileID: 290447713}
+  - {fileID: 1823839388}
+  - {fileID: 89618948}
   - {fileID: 1982296898}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1444,6 +1444,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1704683246}
     - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
       propertyPath: tilePallet.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1455,6 +1459,38 @@ PrefabInstance:
       propertyPath: tilePallet.Array.data[1]
       value: 
       objectReference: {fileID: 4166282272653978402, guid: db821c5913ff2c041ac66ec03c691753, type: 3}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].ItemObj
+      value: 
+      objectReference: {fileID: 2382374368808308310, guid: 5b0d20321c39acc439ac8fabd90206b9, type: 3}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.data[0].x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.data[0].y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.data[1].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.data[1].y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.data[2].x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699364091479662097, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
+      propertyPath: Items.Array.data[0].posList.Array.data[2].y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6699364091479662098, guid: 800e934c64bba7748a3646bbe74718fa, type: 3}
       propertyPath: m_Name
       value: StageManager
