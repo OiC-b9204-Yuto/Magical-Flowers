@@ -1942,8 +1942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ab31b211bc33b438153ea0d5fdc9fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
+  health: 20
+  maxHealth: 20
   attackPoint: 10
   defensePoint: 2
   currentExp: 0
@@ -1988,6 +1988,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c650cc55ed0b5b64b9b5a6f7dcaa6fbe, type: 2}
   - {fileID: 11400000, guid: 872cde3c16fdbc947839a6cd5b12b4ed, type: 2}
   - {fileID: 11400000, guid: e1b26fceb1aeaa74c8fa92a949160b72, type: 2}
+  - {fileID: 11400000, guid: c6bca4e6d8f214b42ac0f5eacc714c75, type: 2}
 --- !u!1 &5481817995760289272
 GameObject:
   m_ObjectHideFlags: 0

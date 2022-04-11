@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using MagicalFlowers.Base;
+using MagicalFlowers.UI;
 
 namespace MagicalFlowers.Item
 {
@@ -66,15 +67,19 @@ namespace MagicalFlowers.Item
             {
                 case StateType.MaxHealth:
                     ba.AddMaxHealth(value);
+                    MessageLogManager.Instance.ItemMaxHealthUpLog(ba, this);
                     break;
                 case StateType.Health:
                     ba.TakeHeal(value);
+                    MessageLogManager.Instance.ItemHealLog(ba, this);
                     break;
                 case StateType.Attack:
                     ba.AddAttackPoint(value);
+                    MessageLogManager.Instance.ItemAttackUpLog(ba, this);
                     break;
                 case StateType.Defense:
                     ba.AddDefensePoint(value);
+                    MessageLogManager.Instance.ItemDefenseUpLog(ba, this);
                     break;
                 default:
                     break;

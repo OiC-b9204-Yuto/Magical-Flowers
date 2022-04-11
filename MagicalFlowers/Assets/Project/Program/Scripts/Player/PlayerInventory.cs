@@ -7,15 +7,16 @@ namespace MagicalFlowers.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
+        PlayerActor player;
         [SerializeField]List<ItemParameter> inventory;
 
-        public IReadOnlyList<ItemParameter> ReadOnlyInventory => inventory;
+        public IReadOnlyList<ItemParameter> ReadOnlyInventory => inventory.AsReadOnly();
 
         public bool IsOpen { get; set; }
 
         void Start()
         {
-            
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerActor>();
         }
 
         public void ItemUse(int index)
@@ -27,7 +28,7 @@ namespace MagicalFlowers.Player
 
                     break;
                 case ItemType.Available:
-
+                    (inventory[index]._data as available).UseItem(player);
                     break;
                 case ItemType.Flower:
 
@@ -35,6 +36,7 @@ namespace MagicalFlowers.Player
                 default:
                     break;
             }
+            inventory.RemoveAt(index);
         }
 
         public void ItemThrow(int index)

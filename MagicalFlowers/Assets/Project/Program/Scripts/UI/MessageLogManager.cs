@@ -4,6 +4,7 @@ using UnityEngine;
 using MagicalFlowers.Common;
 using MagicalFlowers.Base;
 using MagicalFlowers.Player;
+using MagicalFlowers.Item;
 
 namespace MagicalFlowers.UI
 {
@@ -39,11 +40,30 @@ namespace MagicalFlowers.UI
             logView.AddLogText($"{player.GetActorName()}は<color=red>{amount}</color>のダメージをうけた");
         }
 
-        public void OtherDamageLog(BaseActor baseActor, int amount)
+        public void OtherDamageLog(BaseActor actor, int amount)
         {
-            logView.AddLogText($"<color=yellow>{baseActor.GetActorName()}</color>は<color=red>{amount}</color>のダメージをうけた");
+            logView.AddLogText($"<color=yellow>{actor.GetActorName()}</color>は<color=red>{amount}</color>のダメージをうけた");
         }
 
+        public void ItemHealLog(BaseActor actor, available item)
+        {
+            logView.AddLogText($"<color=yellow>{actor.GetActorName()}</color>は<color=orange>{item.Name}</color>を使用した。体力が<color=lime>{item.value}</color>回復した");
+        }
+
+        public void ItemAttackUpLog(BaseActor actor, available item)
+        {
+            logView.AddLogText($"<color=yellow>{actor.GetActorName()}</color>は<color=orange>{item.Name}</color>を使用した。攻撃力が<color=lime>{item.value}</color>上昇した");
+        }
+
+        public void ItemDefenseUpLog(BaseActor actor, available item)
+        {
+            logView.AddLogText($"<color=yellow>{actor.GetActorName()}</color>は<color=orange>{item.Name}</color>を使用した。防御力が<color=lime>{item.value}</color>上昇した");
+        }
+
+        public void ItemMaxHealthUpLog(BaseActor actor, available item)
+        {
+            logView.AddLogText($"<color=yellow>{actor.GetActorName()}</color>は<color=orange>{item.Name}</color>を使用した。体力の最大値が<color=lime>{item.value}</color>上昇した");
+        }
 
         public void OutputLog(string message)
         {

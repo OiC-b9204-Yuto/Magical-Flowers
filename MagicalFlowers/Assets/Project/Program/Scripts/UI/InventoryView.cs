@@ -46,6 +46,7 @@ namespace MagicalFlowers.UI
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
+                ChangeViewUpdate();
                 playerInventory.IsOpen = !playerInventory.IsOpen;
                 itemListArea.gameObject.SetActive(playerInventory.IsOpen);
                 if (!playerInventory.IsOpen)
@@ -128,6 +129,7 @@ namespace MagicalFlowers.UI
                 {
                     itemUIContents[i].button.gameObject.SetActive(true);
                     itemUIContents[i].text.text = readOnlyInventory[i + page]._data.Name;
+                    Debug.Log($"{i + page}:{ readOnlyInventory[i + page]._data.Name }");
                 }
                 else
                 {

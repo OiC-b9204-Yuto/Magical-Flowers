@@ -852,11 +852,11 @@ MonoBehaviour:
   - button: {fileID: 1570470793563420713}
     text: {fileID: 3201757767745650256}
   - button: {fileID: 1119024389851325580}
-    text: {fileID: 3547904010655146345}
+    text: {fileID: 5196124228367882749}
   - button: {fileID: 1543575513576387259}
-    text: {fileID: 456741052215779213}
+    text: {fileID: 3547904010655146345}
   - button: {fileID: 2468743801646557835}
-    text: {fileID: 1507834807083567268}
+    text: {fileID: 456741052215779213}
   - button: {fileID: 9077271162262889898}
     text: {fileID: 1507834807083567268}
   - button: {fileID: 1937748865641818316}
@@ -870,6 +870,7 @@ MonoBehaviour:
   - button: {fileID: 180478462622982119}
     text: {fileID: 2519919853763651856}
   pageText: {fileID: 1939114698534365857}
+  selectedIndex: -1
 --- !u!1 &1783485043889183940
 GameObject:
   m_ObjectHideFlags: 0
